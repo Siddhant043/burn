@@ -30,7 +30,7 @@ const index = ({ handlePress, children, size }) => {
     }
   };
   return (
-    <TouchableOpacity style={styles.button}>
+    <TouchableOpacity style={styles.button} onPress={handlePress}>
       <LinearGradient
         colors={["#2DFFF5", "#C3F99D", "#DBF98F", "#FFF878"]}
         start={{ x: 0, y: 0 }} // Gradient start point (top-left)

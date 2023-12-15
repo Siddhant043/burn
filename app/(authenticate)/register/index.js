@@ -18,6 +18,7 @@ import SimpleButton from "../../../components/SimpleButton";
 import GoogleIcon from "../../../assets/google-icon.png";
 import MetaIcon from "../../../assets/meta-icon.png";
 import { useRouter } from "expo-router";
+import { useUserData } from "../../../hooks/user/userHooks";
 
 const register = () => {
   const router = useRouter();
@@ -29,6 +30,12 @@ const register = () => {
 
   const [showPassword, toggleShowPassword] = useState(false);
   const [showConfirmPassword, toggleShowConfirmPassword] = useState(false);
+  const { register } = useUserData();
+
+  const handleSignUp = () => {
+    register(data);
+    router.push("/userDetails");
+  };
 
   const handleSignUpWithGoogle = () => {};
   const handleSignUpWithMeta = () => {};
@@ -103,7 +110,9 @@ const register = () => {
           </View>
         </View>
         <View style={styles.buttonContainer}>
-          <PrimaryButton size="large">Sign up</PrimaryButton>
+          <PrimaryButton size="large" handlePress={handleSignUp}>
+            Sign up
+          </PrimaryButton>
         </View>
         <View style={styles.secondContainer}>
           <View style={styles.dividerContainerOne}>

@@ -2,6 +2,8 @@ import { Stack } from "expo-router";
 import { useCallback } from "react";
 import { useFonts } from "expo-font";
 import * as SplashScreen from "expo-splash-screen";
+import { Provider } from "react-redux";
+import store from "../redux/store";
 
 SplashScreen.preventAutoHideAsync();
 
@@ -24,10 +26,12 @@ const Layout = () => {
   }, [fontsLoaded]);
   if (!fontsLoaded) return null;
   return (
-    <Stack
-      screenOptions={{ headerShown: false }}
-      onLayoutRootView={onLayoutRootView}
-    />
+    <Provider store={store}>
+      <Stack
+        screenOptions={{ headerShown: false }}
+        onLayoutRootView={onLayoutRootView}
+      />
+    </Provider>
   );
 };
 
