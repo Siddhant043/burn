@@ -9,7 +9,7 @@ import {
   TouchableOpacity,
   View,
 } from "react-native";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import styles from "./styles";
 import Logo from "../../../assets/logo-white.png";
 import { Entypo } from "@expo/vector-icons";
@@ -19,9 +19,13 @@ import GoogleIcon from "../../../assets/google-icon.png";
 import MetaIcon from "../../../assets/meta-icon.png";
 import { useRouter } from "expo-router";
 import { useUserData } from "../../../hooks/user/userHooks";
+import { validateEmail } from "../../../utils/validateEmail";
+import { ScrollView } from "react-native-gesture-handler";
+import ErrorComponent from "../../../components/ErrorComponent";
 
 const register = () => {
   const router = useRouter();
+  const { register } = useUserData();
   const [data, setData] = useState({
     email: "",
     password: "",
@@ -30,11 +34,51 @@ const register = () => {
 
   const [showPassword, toggleShowPassword] = useState(false);
   const [showConfirmPassword, toggleShowConfirmPassword] = useState(false);
-  const { register } = useUserData();
+  const [emailError, setEmailError] = useState(false);
+  const [passwordError, setPasswordError] = useState(false);
+  const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+
+  const handleSetEmail = (text) => {
+    setData({ ...data, email: text });
+  };
+
+  const handleSetPassword = (text) => {
+    setData({ ...data, password: text });
+  };
+
+  const handleSetConfirmPassword = (text) => {
+    setData({ ...data, confirmPassword: text });
+  };
+  const resetErrors = () => {
+    setEmailError("");
+    setPasswordError("");
+    setConfirmPasswordError("");
+  };
 
   const handleSignUp = () => {
-    register(data);
-    router.push("/userDetails");
+    resetErrors();
+
+    if (!validateEmail(data.email)) {
+      setEmailError("*Valid email is required");
+    }
+
+    if (data.password.length < 8) {
+      setPasswordError("*Password length should be at least 8 characters");
+    }
+
+    if (data.password !== data.confirmPassword) {
+      setConfirmPasswordError(
+        "*Password and Confirm Password should be the same"
+      );
+    }
+    if (
+      emailError === "" &&
+      passwordError === "" &&
+      confirmPasswordError === ""
+    ) {
+      register(data);
+      router.push("/userDetails");
+    }
   };
 
   const handleSignUpWithGoogle = () => {};
@@ -42,7 +86,7 @@ const register = () => {
 
   return (
     <SafeAreaView style={styles.main}>
-      <View style={styles.innerContainer}>
+      <ScrollView style={styles.innerContainer}>
         <View style={styles.imageContainer}>
           <Image
             source={Logo}
@@ -62,8 +106,9 @@ const register = () => {
             placeholder="Email"
             placeholderTextColor={"#868181"}
             value={data.email}
-            onChangeText={(text) => setData({ ...data, email: text })}
+            onChangeText={(text) => handleSetEmail(text)}
           />
+          <ErrorComponent error={emailError} />
           <View style={styles.passwordContainer}>
             <Pressable
               style={styles.passwordIcon}
@@ -82,8 +127,9 @@ const register = () => {
               placeholder="Password"
               placeholderTextColor={"#868181"}
               value={data.password}
-              onChangeText={(text) => setData({ ...data, password: text })}
+              onChangeText={(text) => handleSetPassword(text)}
             />
+            <ErrorComponent error={passwordError} />
           </View>
           <View style={styles.passwordContainer}>
             <Pressable
@@ -103,10 +149,9 @@ const register = () => {
               placeholder="Confirm Password"
               placeholderTextColor={"#868181"}
               value={data.confirmPassword}
-              onChangeText={(text) =>
-                setData({ ...data, confirmPassword: text })
-              }
+              onChangeText={(text) => handleSetConfirmPassword(text)}
             />
+            <ErrorComponent error={confirmPasswordError} />
           </View>
         </View>
         <View style={styles.buttonContainer}>
@@ -133,10 +178,10 @@ const register = () => {
         </View>
         <View style={styles.goToSignupContainer}>
           <Pressable onPress={() => router.replace("/login")}>
-            <Text style={styles.signupText}>Alreadt have a account? Login</Text>
+            <Text style={styles.signupText}>Already have a account? Login</Text>
           </Pressable>
         </View>
-      </View>
+      </ScrollView>
     </SafeAreaView>
   );
 };

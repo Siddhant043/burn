@@ -12,20 +12,6 @@ const gray = {
   800: "#1F2329",
   900: "#181B20",
 };
-
-const colors = {
-  mainBackground: gray[800],
-  primaryGradient:
-    "linear-gradient(90deg, #2DFFF5 1.47%, #C3F99D 51.36%, #DBF98F 66.99%, #FFF878 98.24%);",
-  white: "#fff",
-  black: "#000",
-  gray,
-  blue,
-  green,
-  yellow,
-  red,
-};
-
 const red = {
   50: "#FDEAEA",
   100: "#F9BFBF",
@@ -73,6 +59,19 @@ const yellow = {
   700: "#A79221",
   800: "#81711A",
   900: "#635614",
+};
+
+const colors = {
+  mainBackground: gray[800],
+  primaryGradient:
+    "linear-gradient(90deg, #2DFFF5 1.47%, #C3F99D 51.36%, #DBF98F 66.99%, #FFF878 98.24%);",
+  white: "#fff",
+  black: "#000",
+  gray,
+  blue,
+  green,
+  yellow,
+  red,
 };
 
 export default colors;

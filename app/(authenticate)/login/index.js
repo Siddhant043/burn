@@ -17,16 +17,28 @@ import SimpleButton from "../../../components/SimpleButton";
 import GoogleIcon from "../../../assets/google-icon.png";
 import MetaIcon from "../../../assets/meta-icon.png";
 import { useRouter } from "expo-router";
+import { useUserData } from "../../../hooks/user/userHooks";
+import { validateEmail } from "../../../utils/validateEmail";
+import ErrorComponent from "../../../components/ErrorComponent";
 
-const login = () => {
+const Login = () => {
   const router = useRouter();
+  const { login } = useUserData();
   const [data, setData] = useState({
     email: "",
     password: "",
   });
-
+  const [emailError, setEmailError] = useState(false);
   const [showPassword, toggleShowPassword] = useState(false);
 
+  const handleLogin = () => {
+    setEmailError("");
+    if (!validateEmail(data.email)) {
+      setEmailError("*Valid email is required");
+    } else {
+      login(data);
+    }
+  };
   const handleForgotPassword = () => {};
   const handleLoginWithGoogle = () => {};
   const handleLoginWithMeta = () => {};
@@ -54,6 +66,7 @@ const login = () => {
             value={data.email}
             onChangeText={(text) => setData({ ...data, email: text })}
           />
+          <ErrorComponent error={emailError} />
           <View style={styles.passwordContainer}>
             <Pressable
               style={styles.passwordIcon}
@@ -82,7 +95,9 @@ const login = () => {
           </Pressable>
         </View>
         <View style={styles.buttonContainer}>
-          <PrimaryButton size="large">Login</PrimaryButton>
+          <PrimaryButton size="large" handlePress={handleLogin}>
+            Login
+          </PrimaryButton>
         </View>
         <View style={styles.secondContainer}>
           <View style={styles.dividerContainerOne}>
@@ -111,4 +126,4 @@ const login = () => {
   );
 };
 
-export default login;
+export default Login;

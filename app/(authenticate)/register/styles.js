@@ -38,7 +38,7 @@ export default styles = StyleSheet.create({
     borderRadius: 10,
     fontSize: 14,
     fontFamily: "PoppinsRegular",
-    marginTop: 30,
+    marginTop: 12,
   },
   passwordContainer: {
     position: "relative",
@@ -46,7 +46,7 @@ export default styles = StyleSheet.create({
   passwordIcon: {
     position: "absolute",
     right: 10,
-    top: 42,
+    top: 25,
     zIndex: 2,
   },
   forgotPasswordContainer: {

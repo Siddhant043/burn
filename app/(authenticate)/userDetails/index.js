@@ -81,6 +81,7 @@ const userDetails = () => {
 
   const handleComplete = () => {
     update(data);
+    router.push("/(tabs)/dashboard");
   };
 
   const genderPlaceholder = {

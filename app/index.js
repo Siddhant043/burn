@@ -5,7 +5,7 @@ import { Redirect } from "expo-router";
 const index = () => {
   return (
     <SafeAreaView>
-      <Redirect href="/(authenticate)/register" />
+      <Redirect href="/(authenticate)/login" />
     </SafeAreaView>
   );
 };
