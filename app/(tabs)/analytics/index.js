@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Analytics = () => {
+const index = () => {
   return (
     <View>
       <Text>Analytics</Text>
@@ -9,6 +9,6 @@ const Analytics = () => {
   );
 };
 
-export default Analytics;
+export default index;
 
 const styles = StyleSheet.create({});

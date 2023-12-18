@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Community = () => {
+const index = () => {
   return (
     <View>
       <Text>Community</Text>
@@ -9,6 +9,6 @@ const Community = () => {
   );
 };
 
-export default Community;
+export default index;
 
 const styles = StyleSheet.create({});

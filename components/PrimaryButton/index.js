@@ -8,19 +8,19 @@ const styles = StyleSheet.create({
     paddingVertical: 10,
     alignItems: "flex-start",
   },
-  text: {
+  text: (size) => ({
     textAlign: "center",
     color: COLORS.gray[800],
-    fontSize: 18,
+    fontSize: size === "small" ? 13 : size === "medium" ? 15 : 18,
     fontFamily: "PoppinsMedium",
-  },
+  }),
 });
 
 const index = ({ handlePress, children, size }) => {
   const getButtonSize = () => {
     switch (size) {
       case "small":
-        return 30;
+        return 20;
       case "medium":
         return 50;
       case "large":
@@ -41,7 +41,7 @@ const index = ({ handlePress, children, size }) => {
           borderRadius: 10,
         }}
       >
-        <Text style={styles.text}>{children}</Text>
+        <Text style={styles.text(size)}>{children}</Text>
       </LinearGradient>
     </TouchableOpacity>
   );

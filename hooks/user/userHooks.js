@@ -3,7 +3,7 @@ import { DEV_ENDPOINT } from "@env";
 import { Alert } from "react-native";
 import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
-import { selectToken, setToken } from "../../redux/reducers/userSlice";
+import { selectToken, setToken, setUser } from "../../redux/reducers/userSlice";
 import { useRouter } from "expo-router";
 
 export const useUserData = () => {
@@ -62,7 +62,7 @@ export const useUserData = () => {
         fitnessLevel,
         goal,
         trainingLevel,
-        dob,
+        dateOfBirth,
       } = user;
       const body = {
         name,
@@ -73,7 +73,7 @@ export const useUserData = () => {
           fitnessLevel,
           goal,
           trainingLevel,
-          dateOfBirth: dob,
+          dob: dateOfBirth,
         },
       };
       const response = await axios.patch(
@@ -96,10 +96,45 @@ export const useUserData = () => {
     }
   };
 
+  const userDetails = async () => {
+    try {
+      const response = await axios.get(`${DEV_ENDPOINT}/users/me`, {
+        headers: {
+          Authorization: `Bearer ${aToken}`,
+        },
+      });
+      const data = await response.data.data.data;
+      const payload = {
+        name: data.name,
+        email: data.email,
+        connections: data.connections,
+        connectionsSent: data.connectionsSent,
+        connectionsRecieved: data.connectionsRecieved,
+        workouts: data.workouts,
+        profile: {
+          height: data.profile.height,
+          weight: data.profile.weight,
+          gender: data.profile.gender,
+          fitnessLevel: data.profile.fitnessLevel,
+          goal: data.profile.goal,
+          trainingLevel: data.profile.trainingLevel,
+          dateOfBirth: data.profile.dob,
+          profilePicture: data.profile.profilePicture,
+          description: data.profile.description,
+        },
+      };
+      dispatch(setUser(payload));
+    } catch (error) {
+      console.error("Failed to get user", error);
+      return { success: false, error: error };
+    }
+  };
+
   return {
     register,
     update,
     login,
     authToken: aToken,
+    userDetails,
   };
 };

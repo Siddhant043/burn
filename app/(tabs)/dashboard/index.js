@@ -1,14 +1,42 @@
-import { StyleSheet, Text, View } from "react-native";
-import React from "react";
+import { Image, SafeAreaView, StyleSheet, Text, View } from "react-native";
+import React, { useEffect } from "react";
+import dashboardStyles from "./dashboard.styles";
+import { useUserData } from "../../../hooks/user/userHooks";
+import { useSelector } from "react-redux";
+import { selectUser } from "../../../redux/reducers/userSlice";
+import ProfileLogo from "../../../assets/profile.png";
 
-const Dashboard = () => {
+const index = () => {
+  const { userDetails } = useUserData();
+  useEffect(() => {
+    userDetails();
+  }, []);
+  const userData = useSelector(selectUser);
+
   return (
-    <View>
-      <Text>Dashboard</Text>
-    </View>
+    <SafeAreaView style={dashboardStyles.main}>
+      <View style={dashboardStyles.innerContainer}>
+        <View style={dashboardStyles.headerContainer}>
+          <Text style={dashboardStyles.title}>
+            Good morning,{" "}
+            <Text style={dashboardStyles.name}>{userData.name}</Text>
+          </Text>
+          <Image
+            source={
+              userData.profile.profilePicture
+                ? userData.profile.profilePicture
+                : ProfileLogo
+            }
+            style={dashboardStyles.profileImage}
+            alt=""
+            resizeMode="contain"
+          />
+        </View>
+      </View>
+    </SafeAreaView>
   );
 };
 
-export default Dashboard;
+export default index;
 
 const styles = StyleSheet.create({});

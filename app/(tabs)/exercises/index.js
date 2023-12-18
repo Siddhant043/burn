@@ -1,7 +1,7 @@
 import { StyleSheet, Text, View } from "react-native";
 import React from "react";
 
-const Exercises = () => {
+const index = () => {
   return (
     <View>
       <Text>Exercises</Text>
@@ -9,6 +9,6 @@ const Exercises = () => {
   );
 };
 
-export default Exercises;
+export default index;
 
 const styles = StyleSheet.create({});
