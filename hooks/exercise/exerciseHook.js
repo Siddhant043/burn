@@ -6,10 +6,12 @@ export const useExerciseData = () => {
   const [exercises, setExercises] = useState([]);
   const [isLoading, setIsLoading] = useState(false);
   const [error, setError] = useState(null);
-  const getAllExercises = async () => {
+  const getAllExercises = async (page) => {
     setIsLoading(true);
     try {
-      const response = await axios.get(`${DEV_ENDPOINT}/exercises?page=0`);
+      const response = await axios.get(
+        `${DEV_ENDPOINT}/exercises?page=${page}`
+      );
       const exercises = response.data.data.docs;
       setExercises(exercises);
       setIsLoading(false);
@@ -24,9 +26,9 @@ export const useExerciseData = () => {
     getAllExercises();
   }, []);
 
-  const refetch = () => {
+  const refetch = (page) => {
     setIsLoading(true);
-    getAllExercises();
+    getAllExercises(page);
   };
 
   return { data: exercises, isLoading, error, refetch };

@@ -25,7 +25,14 @@ export default styles = StyleSheet.create({
     height: 35,
     width: 35,
   },
-  cardsContainer: {
-    marginTop: 50,
+  searchBox: {
+    height: 45,
+    marginVertical: 20,
+    backgroundColor: COLORS.gray[50],
+    borderRadius: 10,
+    fontSize: 14,
+    paddingHorizontal: 14,
+    fontFamily: "PoppinsRegular",
   },
+  cardsContainer: {},
 });
