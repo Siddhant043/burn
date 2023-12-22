@@ -35,14 +35,15 @@ const index = () => {
           <Text style={workoutStyles.historyCta}>Check History</Text>
         </View>
         <View style={styles.cardsContainer}>
-          {workouts &&
-            workouts.map((workout) => (
-              <WorkoutCardComponent
-                key={workout.id}
-                workout={workout}
-                handlePress={() => {}}
-              />
-            ))}
+          <FlatList
+            data={workouts}
+            renderItem={({ item }) => (
+              <WorkoutCardComponent workout={item} handlePress={() => {}} />
+            )}
+            keyExtractor={(item) => item?._id}
+            contentContainerStyle={{ rowGap: 10 }}
+            vertical
+          />
         </View>
       </View>
     </SafeAreaView>
