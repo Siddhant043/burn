@@ -5,7 +5,7 @@ import PrimaryButton from "../PrimaryButton";
 import { format } from "date-fns";
 import { MaterialIcons } from "@expo/vector-icons";
 
-const index = ({ workout }) => {
+const index = ({ workout, handleOpenModal }) => {
   const { workoutName, exercises, createdAt } = workout;
   const formattedDate = format(createdAt, "dd/MM/yyyy");
   return (
@@ -24,7 +24,10 @@ const index = ({ workout }) => {
           ))}
       </View>
       <View style={styles.buttonContainer}>
-        <PrimaryButton size="small" handlePress={() => {}}>
+        <PrimaryButton
+          size="small"
+          handlePress={() => handleOpenModal(workout)}
+        >
           Edit
         </PrimaryButton>
         <Pressable onPress={() => {}}>

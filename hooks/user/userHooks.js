@@ -1,7 +1,6 @@
 import axios from "axios";
 import { DEV_ENDPOINT } from "@env";
 import { Alert } from "react-native";
-import { useState } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken, setToken, setUser } from "../../redux/reducers/userSlice";
 import { useRouter } from "expo-router";
@@ -43,7 +42,7 @@ export const useUserData = () => {
         "Login Successful",
         "You have been completed your profile successfully"
       );
-      router.push("/(tabs)/exercises");
+      router.push("/(tabs)/dashboard");
       return { success: true, data: response.data }; // You can return additional data if needed
     } catch (error) {
       console.error("Login failed:", error);

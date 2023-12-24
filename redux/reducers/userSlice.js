@@ -46,10 +46,17 @@ const userSlice = createSlice({
       ];
       state.workouts = action.payload.workouts;
     },
+    setWorkout: (state, action) => {
+      state.workouts = state.workouts.map((workout) => {
+        if (workout._id === action.payload._id) {
+          workout = { ...action.payload };
+        }
+      });
+    },
   },
 });
 
-export const { setToken, setUser } = userSlice.actions;
+export const { setToken, setUser, setWorkout } = userSlice.actions;
 
 export const selectToken = (state) => state.user.token;
 export const selectUser = (state) => state.user;

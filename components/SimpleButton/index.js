@@ -14,12 +14,12 @@ const styles = StyleSheet.create({
     alignItems: "center",
     justifyContent: "center",
   },
-  text: {
+  text: (size) => ({
     textAlign: "center",
     color: COLORS.white,
-    fontSize: 18,
+    fontSize: size === "small" ? 13 : size === "medium" ? 15 : 18,
     fontFamily: "PoppinsMedium",
-  },
+  }),
   icon: {
     marginRight: 20,
     height: 20,
@@ -27,7 +27,7 @@ const styles = StyleSheet.create({
   },
 });
 
-const index = ({ children, icon, handlePress }) => {
+const index = ({ children, icon, handlePress, size }) => {
   return (
     <TouchableOpacity style={styles.main} onPress={handlePress}>
       {icon && (
@@ -38,7 +38,7 @@ const index = ({ children, icon, handlePress }) => {
           resizeMode="contain"
         />
       )}
-      <Text style={styles.text}>{children}</Text>
+      <Text style={styles.text(size)}>{children}</Text>
     </TouchableOpacity>
   );
 };

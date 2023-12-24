@@ -12,8 +12,8 @@ export const useExerciseData = () => {
       const response = await axios.get(
         `${DEV_ENDPOINT}/exercises?page=${page}`
       );
-      const exercises = response.data.data.docs;
-      setExercises(exercises);
+      const data = response.data.data.docs;
+      setExercises((prev) => [...prev, ...data]);
       setIsLoading(false);
     } catch (error) {
       setError(error);

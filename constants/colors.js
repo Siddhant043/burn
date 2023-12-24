@@ -63,6 +63,7 @@ const yellow = {
 
 const colors = {
   mainBackground: gray[800],
+  transparent: "rgba(0, 0, 0, 0.30);",
   primaryGradient:
     "linear-gradient(90deg, #2DFFF5 1.47%, #C3F99D 51.36%, #DBF98F 66.99%, #FFF878 98.24%);",
   white: "#fff",
