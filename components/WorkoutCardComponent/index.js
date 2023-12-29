@@ -1,5 +1,5 @@
 import { Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { COLORS } from "../../constants";
 import PrimaryButton from "../PrimaryButton";
 import { format } from "date-fns";

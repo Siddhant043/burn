@@ -47,11 +47,14 @@ const userSlice = createSlice({
       state.workouts = action.payload.workouts;
     },
     setWorkout: (state, action) => {
-      state.workouts = state.workouts.map((workout) => {
-        if (workout._id === action.payload._id) {
-          workout = { ...action.payload };
+      const data = state.workouts.map((item) => {
+        if (item._id === action.payload._id) {
+          return action.payload;
+        } else {
+          return item;
         }
       });
+      state.workouts = [...data];
     },
   },
 });

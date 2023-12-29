@@ -1,5 +1,5 @@
 import { Image, Pressable, StyleSheet, Text, View } from "react-native";
-import React from "react";
+import React, { useState } from "react";
 import { COLORS } from "../../constants";
 import PrimaryButton from "../PrimaryButton";
 import { useUpdateWorkout } from "../../hooks/workout/workoutHook";
@@ -21,6 +21,20 @@ const index = React.memo(({ exercise, lastItem, workout = {} }) => {
       exercises: [...workout.exercises, exercise._id],
     };
     updateWorkout(updatedWorkout);
+
+    checkIfExerciseAlreadyPresent();
+  };
+
+  const removeWorkout = () => {
+    const updatedExerciseList = workout.exercises.filter(
+      (obj) => obj._id !== exercise._id
+    );
+    const updatedWorkout = {
+      ...workout,
+      exercises: updatedExerciseList,
+    };
+    updateWorkout(updatedWorkout);
+    checkIfExerciseAlreadyPresent();
   };
 
   return (
@@ -35,7 +49,7 @@ const index = React.memo(({ exercise, lastItem, workout = {} }) => {
           View
         </PrimaryButton>
       ) : checkIfExerciseAlreadyPresent() ? (
-        <Pressable>
+        <Pressable onPress={removeWorkout}>
           <Text style={styles.removeText}>Remove</Text>
         </Pressable>
       ) : (

@@ -11,19 +11,14 @@ import workoutStyles from "./workout.styles";
 import PrimaryButton from "../../../components/PrimaryButton";
 import ProfileLogo from "../../../assets/profile.png";
 import WorkoutCardComponent from "../../../components/WorkoutCardComponent";
-import WorkoutDetailsModal from "../../../components/WorkoutDetailsModal";
+import ExerciseListModal from "../../../components/ExerciseListModal";
 import { selectUserWorkouts } from "../../../redux/reducers/userSlice";
 import { useSelector } from "react-redux";
 
 const Index = () => {
   const [openModal, setOpenModal] = useState(false);
   const [selectedWorkout, setSelectedWorkout] = useState(null);
-  const [workouts, setWorkouts] = useState([]);
   const userWorkouts = useSelector(selectUserWorkouts);
-
-  useEffect(() => {
-    setWorkouts(userWorkouts);
-  }, userWorkouts);
 
   const handleOpenModal = (workout) => {
     setSelectedWorkout(workout);
@@ -33,7 +28,6 @@ const Index = () => {
   const closeModal = () => {
     setOpenModal(false);
   };
-  console.log("workouts", workouts);
 
   return (
     <SafeAreaView style={workoutStyles.main}>
@@ -54,9 +48,9 @@ const Index = () => {
           <Text style={workoutStyles.historyCta}>Check History</Text>
         </View>
         <View style={styles.cardsContainer}>
-          {workouts.length > 0 ? (
+          {userWorkouts.length > 0 ? (
             <FlatList
-              data={workouts}
+              data={userWorkouts}
               renderItem={({ item }) => (
                 <WorkoutCardComponent
                   workout={item}
@@ -73,10 +67,10 @@ const Index = () => {
         </View>
         {/* Render the modal component based on the state */}
         {openModal && selectedWorkout && (
-          <WorkoutDetailsModal
+          <ExerciseListModal
             openModal={openModal}
             workout={selectedWorkout}
-            closeModal={closeModal}
+            closeExerciseModal={closeModal}
           />
         )}
       </View>
