@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DEV_ENDPOINT } from "@env";
+import { PROD_ENDPOINT } from "@env";
 import { Alert } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken, setToken, setUser } from "../../redux/reducers/userSlice";
@@ -11,7 +11,7 @@ export const useUserData = () => {
   const register = async (user) => {
     try {
       const { email, password, confirmPassword } = user;
-      const response = await axios.post(`${DEV_ENDPOINT}/users/signup`, {
+      const response = await axios.post(`${PROD_ENDPOINT}/users/signup`, {
         email,
         password,
         passwordConfirm: confirmPassword,
@@ -32,7 +32,7 @@ export const useUserData = () => {
   const login = async (user) => {
     try {
       const { email, password } = user;
-      const response = await axios.post(`${DEV_ENDPOINT}/users/login`, {
+      const response = await axios.post(`${PROD_ENDPOINT}/users/login`, {
         email,
         password,
       });
@@ -45,7 +45,7 @@ export const useUserData = () => {
       router.push("/(tabs)/dashboard");
       return { success: true, data: response.data }; // You can return additional data if needed
     } catch (error) {
-      console.error("Login failed:", error);
+      console.error("Login failed:", { ...error });
       return { success: false, error: error }; // You can customize the error handling based on your needs
     }
   };
@@ -76,7 +76,7 @@ export const useUserData = () => {
         },
       };
       const response = await axios.patch(
-        `${DEV_ENDPOINT}/users/updateMe`,
+        `${PROD_ENDPOINT}/users/updateMe`,
         body,
         {
           headers: {
@@ -97,7 +97,7 @@ export const useUserData = () => {
 
   const userDetails = async () => {
     try {
-      const response = await axios.get(`${DEV_ENDPOINT}/users/me`, {
+      const response = await axios.get(`${PROD_ENDPOINT}/users/me`, {
         headers: {
           Authorization: `Bearer ${aToken}`,
         },

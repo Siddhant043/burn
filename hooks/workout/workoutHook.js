@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DEV_ENDPOINT } from "@env";
+import { PROD_ENDPOINT } from "@env";
 import { useDispatch, useSelector } from "react-redux";
 import { selectToken, setWorkout } from "../../redux/reducers/userSlice";
 
@@ -9,7 +9,7 @@ export const useUpdateWorkout = () => {
   const updateWorkout = async (updatedWorkout) => {
     try {
       const response = await axios.patch(
-        `${DEV_ENDPOINT}/workouts/${updatedWorkout._id}`,
+        `${PROD_ENDPOINT}/workouts/${updatedWorkout._id}`,
         {
           ...updatedWorkout,
         },
@@ -32,7 +32,7 @@ export const useUpdateWorkout = () => {
   const getWorkout = async (updatedWorkout) => {
     try {
       const response = await axios.get(
-        `${DEV_ENDPOINT}/workouts/${updatedWorkout._id}`,
+        `${PROD_ENDPOINT}/workouts/${updatedWorkout._id}`,
 
         {
           headers: {

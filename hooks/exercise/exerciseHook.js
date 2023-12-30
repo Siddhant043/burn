@@ -1,5 +1,5 @@
 import axios from "axios";
-import { DEV_ENDPOINT } from "@env";
+import { PROD_ENDPOINT } from "@env";
 import { useEffect, useState } from "react";
 
 export const useExerciseData = () => {
@@ -10,7 +10,7 @@ export const useExerciseData = () => {
     setIsLoading(true);
     try {
       const response = await axios.get(
-        `${DEV_ENDPOINT}/exercises?page=${page}`
+        `${PROD_ENDPOINT}/exercises?page=${page}`
       );
       const data = response.data.data.docs;
       setExercises((prev) => [...prev, ...data]);
